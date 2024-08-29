@@ -9,15 +9,26 @@ const Button = ({ handleClick, text}) => (
 
 const Statistics = (props) => {
   const {good, neutral, bad, totalClicks} = props
+
+    // Return "No Feedback" if no clicks
+    if (totalClicks === 0) {
+      return (
+        <div>
+          <h3>Current Feedback Statistics</h3>
+          We haven't received any feedback.
+        </div>
+      )
+    }
+
     return(
       <div>
-        <h2>Current Feedback Statistics:</h2>
+        <h3>Current Feedback Statistics:</h3>
         Good: {good} Neutral: {neutral} Bad: {bad}
 
-        <h2>Average Rating from -1 to 1:</h2>
+        <h3>Average Rating from Bad(-1) to Good(+1):</h3>
         {(good + (bad * -1)) / totalClicks}
 
-        <h2>Percentage of positive feedback:</h2>
+        <h3>Percentage of positive feedback:</h3>
         {good / totalClicks * 100}%
       </div>
     )
