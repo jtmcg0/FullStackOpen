@@ -33,7 +33,7 @@ const Statistics = (props) => {
         <h3>Current Feedback Statistics:</h3>
           <table>
             <tbody>
-            <StatisticLine text='Good' value={good} />
+              <StatisticLine text='Good' value={good} />
               <StatisticLine text='Neutral' value={neutral} />
               <StatisticLine text='Bad' value={bad} /> 
               <StatisticLine text='Total' value={totalClicks} />
