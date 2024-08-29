@@ -33,15 +33,15 @@ const Statistics = (props) => {
     return(
       <div>
         <h3>Current Feedback Statistics:</h3>
-        <p>
-          <StatisticLine text='Good' value={good} />
-          <StatisticLine text='Neutral' value={neutral} />
-          <StatisticLine text='Bad' value={bad} />
-        </p>
-        <p>
-          <StatisticLine text='Average' value={(good + (bad * -1)) / totalClicks} />
-          <StatisticLine text='Percentage Good' value={good / totalClicks * 100} />
-        </p>
+          <table>
+            <tbody>
+              <tr><td><StatisticLine text='Good' value={good} /></td></tr>
+              <tr><td><StatisticLine text='Neutral' value={neutral} /></td></tr>
+              <tr><td><StatisticLine text='Bad' value={bad} /></td></tr>
+              <tr><td><StatisticLine text='Average' value={(good + (bad * -1)) / totalClicks} /></td></tr>
+              <tr><td><StatisticLine text='Percentage Good' value={good / totalClicks * 100} /></td></tr>
+            </tbody>
+          </table>
       </div>
     )
 
