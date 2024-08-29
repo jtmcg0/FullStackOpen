@@ -7,6 +7,16 @@ const Button = ({ handleClick, text}) => (
   </button>
 )
 
+const StatisticLine = (props) => {
+  const {text, value} = props
+  
+  return (
+    <div>
+    {text}: {value}
+    </div>
+  )
+}
+
 const Statistics = (props) => {
   const {good, neutral, bad, totalClicks} = props
 
@@ -23,13 +33,15 @@ const Statistics = (props) => {
     return(
       <div>
         <h3>Current Feedback Statistics:</h3>
-        Good: {good} Neutral: {neutral} Bad: {bad}
-
-        <h3>Average Rating from Bad(-1) to Good(+1):</h3>
-        {(good + (bad * -1)) / totalClicks}
-
-        <h3>Percentage of positive feedback:</h3>
-        {good / totalClicks * 100}%
+        <p>
+          <StatisticLine text='Good' value={good} />
+          <StatisticLine text='Neutral' value={neutral} />
+          <StatisticLine text='Bad' value={bad} />
+        </p>
+        <p>
+          <StatisticLine text='Average' value={(good + (bad * -1)) / totalClicks} />
+          <StatisticLine text='Percentage Good' value={good / totalClicks * 100} />
+        </p>
       </div>
     )
 
@@ -43,7 +55,6 @@ const App = () => {
   const [totalClicks, setTotal] = useState(0)
 
   const handleGoodClick = () => {
-    console.log('UpdatedGood')
     const updatedGood = good + 1
     setGood(updatedGood)
     setTotal(updatedGood + neutral + bad)
