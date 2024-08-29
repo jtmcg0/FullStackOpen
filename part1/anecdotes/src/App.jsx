@@ -7,6 +7,7 @@ const Button = ({handleClick, text}) => (
 )
 
 
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -20,16 +21,33 @@ const App = () => {
   ]
    
   const [selected, setSelected] = useState(0)
+  // Initialize votes with array length of anecdotes set to all 0
+  const [votes, setVotes] = useState(Array(anecdotes.length).fill(0))
 
   const randomSelect = () => {
     const newSelection = Math.floor(Math.random() * anecdotes.length)
     setSelected(newSelection)
   }
 
+  const handleVote = () => {
+    const votesCopy = [...votes]
+    
+    // Set empty value to 0 first
+    if (votesCopy[selected] === '') {
+      votesCopy[selected] = 0
+    }
+    votesCopy[selected] += 1
+    setVotes(votesCopy)
+    console.log(votesCopy)
+  }
+
   return (
     <div>
-      {anecdotes[selected]}
+      {anecdotes[selected]} <br />
+      has {votes[selected]} votes.
       <p />
+      <Button handleClick={handleVote} text='Vote +1' />
+      &nbsp;
       <Button handleClick={randomSelect} text='New Anecdote' />
     </div>
   )
