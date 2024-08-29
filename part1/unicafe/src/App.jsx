@@ -11,9 +11,7 @@ const StatisticLine = (props) => {
   const {text, value} = props
   
   return (
-    <div>
-    {text}: {value}
-    </div>
+    <tr><td>{text}:</td> <td>{value}</td></tr>
   )
 }
 
@@ -35,16 +33,17 @@ const Statistics = (props) => {
         <h3>Current Feedback Statistics:</h3>
           <table>
             <tbody>
-              <tr><td><StatisticLine text='Good' value={good} /></td></tr>
-              <tr><td><StatisticLine text='Neutral' value={neutral} /></td></tr>
-              <tr><td><StatisticLine text='Bad' value={bad} /></td></tr>
-              <tr><td><StatisticLine text='Average' value={(good + (bad * -1)) / totalClicks} /></td></tr>
-              <tr><td><StatisticLine text='Percentage Good' value={good / totalClicks * 100} /></td></tr>
+            <StatisticLine text='Good' value={good} />
+              <StatisticLine text='Neutral' value={neutral} />
+              <StatisticLine text='Bad' value={bad} /> 
+              <StatisticLine text='Total' value={totalClicks} />
+              <StatisticLine text='Average' value={(good + (bad * -1)) / totalClicks} />
+              <StatisticLine text='Percentage Good' value={(good / totalClicks * 100) + "%"} />
+              
             </tbody>
           </table>
       </div>
     )
-
 }
 
 const App = () => {
