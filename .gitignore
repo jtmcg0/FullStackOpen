@@ -143,4 +143,4 @@ dist
 *.vsix
 
 # My temporary work directory
-scratch
+scratch/
