@@ -142,5 +142,5 @@ dist
 # Built Visual Studio Code Extensions
 *.vsix
 
-# My temporary work directory
+# temporary work directory
 scratch/
