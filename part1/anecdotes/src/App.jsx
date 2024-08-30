@@ -1,11 +1,31 @@
 import { useState } from 'react'
 
-
 const Button = ({handleClick, text}) => (
 
   <button onClick={handleClick}>{text}</button>
 )
 
+
+const MostVotes = ({anecdotes, votes}) => {
+
+  const voteCount = Math.max(...votes)
+  const mostVoted = votes.indexOf(voteCount)
+
+  // Return "no votes" if highest count is 0
+  if (voteCount === 0) {
+    return(
+      <div>
+        <h3>No votes received yet</h3>
+      </div>
+    )
+  }
+  return(
+    <div>
+      <h3>Most Voted Anecdote ({voteCount} votes)</h3>
+      {anecdotes[mostVoted]}
+    </div>
+  )
+}
 
 
 const App = () => {
@@ -38,7 +58,6 @@ const App = () => {
     }
     votesCopy[selected] += 1
     setVotes(votesCopy)
-    console.log(votesCopy)
   }
 
   return (
@@ -49,6 +68,7 @@ const App = () => {
       <Button handleClick={handleVote} text='Vote +1' />
       &nbsp;
       <Button handleClick={randomSelect} text='New Anecdote' />
+      <MostVotes anecdotes={anecdotes} votes={votes}/>
     </div>
   )
 }
