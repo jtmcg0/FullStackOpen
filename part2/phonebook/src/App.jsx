@@ -19,12 +19,19 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
-    const personObject = {
-      name: newName,
-      id: String(persons.length + 1)
+    // Test is name exists
+    const inBook = persons.filter((person) => person.name === newName)
+    if (inBook.length > 0) {
+      alert(`${newName} is already in the phone book!`)
+    } else {
+      // Add person if name doesn't exist
+      const personObject = {
+        name: newName,
+        id: String(persons.length + 1)
+      }
+      setPersons(persons.concat(personObject))
+      setNewName('')
     }
-    setPersons(persons.concat(personObject))
-    setNewName('')
   }
 
   const handleNameChange = (event) => {
