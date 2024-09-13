@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Persons from './components/Persons'
+import AddForm from './components/AddForm'
 
 
 const App = () => {
@@ -17,8 +18,8 @@ const App = () => {
 
   const addName = (event) => {
     event.preventDefault()
-    
-    // Test is name exists
+    console.log('Inside addName here')
+    // Test if name exists
     const inBook = persons.filter((person) => person.name === newName)
     if (inBook.length > 0) {
       alert(`${newName} is already in the phone book!`)
@@ -35,13 +36,14 @@ const App = () => {
     }
   }
 
+  //If search filter is defined, use it to filter array for output
   const personsToShow = searchFilter
     ? persons.filter(person =>
         person.name.toLowerCase().includes(searchFilter.toLowerCase())
       )
     : persons //Return full list if no filter set
 
-    console.log("Filtered persons:", personsToShow)  // Log the filtered array
+    console.log("Filtered persons:", personsToShow)
     console.log("Current search filter:", searchFilter) 
 
 
@@ -58,39 +60,29 @@ const App = () => {
     setSearchFilter(event.target.value)
   }
 
+  const formData = {
+    addName,
+    handleNameChange,
+    handleNumberChange,
+    newName,
+    newNumber
+  }
+ 
 
   return (
     <div>
       <h2>Phonebook</h2>
-
-      <div>
+      
         Filter: 
         <input
           value = {searchFilter}
           onChange = {handleFilterChange}
         />
-      </div>
 
       <h2>Add New Entry</h2>
-      <form onSubmit = {addName} >
-        <div>
-          name: 
-          <input 
-            value = {newName}
-            onChange = {handleNameChange}
-          />
-        </div>
-        <div>
-          number:
-          <input
-           value = {newNumber}
-           onChange = {handleNumberChange}
-          />
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <AddForm {...formData}/>
+
+
       <h2>Numbers</h2>
       <Persons persons={personsToShow} />
       
