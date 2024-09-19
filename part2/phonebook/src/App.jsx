@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 import Persons from './components/Persons'
 import AddForm from './components/AddForm'
 
@@ -11,15 +11,15 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchFilter, setSearchFilter] = useState('')
 
-  useEffect (() => {
-    console.log('Effect execution')
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        console.log('promise fulfilled')
-        setPersons(response.data)
+
+  useEffect(() => {
+    personService
+      .getAll()
+      .then(initialPersons => {
+        setPersons(initialPersons)
       })
   }, [])
+  console.log(`Rendering ${persons.length} persons from storage`)
 
   const addName = (event) => {
     event.preventDefault()
@@ -33,11 +33,14 @@ const App = () => {
       const personObject = {
         name: newName,
         number: newNumber,
-        id: String(persons.length + 1)
       }
-      setPersons(persons.concat(personObject))
-      setNewName('')
-      setNewNumber('')
+      personService
+        .create(personObject)
+        .then(returnedPerson => {
+          setPersons(persons.concat(returnedPerson))
+          setNewName('')
+          setNewNumber('')
+        })
     }
   }
 
