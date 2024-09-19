@@ -6,11 +6,6 @@
       "id": "1"
     },
     {
-      "name": "Ada Lovelace",
-      "number": "39-44-5323523",
-      "id": "2"
-    },
-    {
       "name": "Dan Abramov",
       "number": "12-43-234345",
       "id": "3"
@@ -21,14 +16,9 @@
       "id": "4"
     },
     {
-      "id": "f3f9",
-      "name": "Test Foo",
-      "number": "123-458-6547"
-    },
-    {
-      "id": "a270",
-      "name": "Foo Two",
-      "number": "13584"
+      "id": "933e",
+      "name": "Foo Bill",
+      "number": "1347-1565"
     }
   ]
 }

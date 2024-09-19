@@ -18,6 +18,9 @@ const App = () => {
       .then(initialPersons => {
         setPersons(initialPersons)
       })
+      .catch(error => {
+        console.log('Failed to retrieve persons list')
+      })
   }, [])
   console.log(`Rendering ${persons.length} persons from storage`)
 
@@ -41,6 +44,9 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+        .catch(error => {
+          console.log('Failed to add new person')
+        })
     }
   }
 
@@ -54,6 +60,19 @@ const App = () => {
     console.log("Filtered persons:", personsToShow)
     console.log("Current search filter:", searchFilter) 
 
+
+  const deletePerson = ({name, id}) => {
+    if (window.confirm(`Are you sure you want to delete ${name}?`)){
+      personService
+        .del(id)
+        .then(response => {
+          console.log(response)
+          //Create updated list by filtering out the id passed for deletion
+          const updatedList = persons.filter(person => person.id !== id)
+          setPersons(updatedList)
+        })
+    }
+  }
 
   const handleNameChange = (event) => {
     console.log(event.target.value)
@@ -92,7 +111,7 @@ const App = () => {
 
 
       <h2>Numbers</h2>
-      <Persons persons={personsToShow} />
+      <Persons persons={personsToShow} deletePerson={deletePerson} />
       
     </div>
   )
