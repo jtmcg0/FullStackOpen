@@ -24,18 +24,41 @@ const App = () => {
   }, [])
   console.log(`Rendering ${persons.length} persons from storage`)
 
-  const addName = (event) => {
+  const addPerson = (event) => {
     event.preventDefault()
     console.log('Inside addName here')
     // Test if name exists
-    const inBook = persons.filter((person) => person.name === newName)
-    if (inBook.length > 0) {
-      alert(`${newName} is already in the phone book!`)
+    const existingPerson = persons.filter((person) => person.name === newName)
+    
+    if (existingPerson.length > 0) {
+      if (window.confirm(`${newName} already exists. Update the entry?`)){
+        const updatedObject = {
+          name: newName,
+          number: newNumber
+        }
+        personService
+          .update(existingPerson[0].id, updatedObject)
+          .then(updatedPerson => {
+            // Map non-matching id items into new array
+            // Matching id gets the new updated person
+            const newPersons = persons.map(person => 
+              person.id !== updatedPerson.id ? person : updatedPerson
+            )
+            setPersons(newPersons)
+            setNewName('')
+            setNewNumber('')
+          })
+          .catch(error => {
+            console.log('Failed to update existing person')
+          })
+      }
+    
+    
     } else {
       // Add person if name doesn't exist
       const personObject = {
         name: newName,
-        number: newNumber,
+        number: newNumber
       }
       personService
         .create(personObject)
@@ -88,7 +111,7 @@ const App = () => {
   }
 
   const formData = {
-    addName,
+    addPerson,
     handleNameChange,
     handleNumberChange,
     newName,

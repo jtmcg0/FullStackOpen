@@ -1,11 +1,11 @@
-const AddForm = ({addName,  
+const AddForm = ({addPerson,  
                   handleNameChange,
                   handleNumberChange,
                   newName,
                   newNumber} = FormData) => {
 
   return(
-    <form onSubmit = {addName} >
+    <form onSubmit = {addPerson} >
     <div>
       Name: 
       <input value = {newName} onChange = {handleNameChange} />
