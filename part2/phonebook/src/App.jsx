@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import personService from './services/persons'
 import Persons from './components/Persons'
 import AddForm from './components/AddForm'
+import Notification from './components/Notification'
 
 
 const App = () => {
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchFilter, setSearchFilter] = useState('')
+  const [notification, setNotification] = useState(null)
 
 
   useEffect(() => {
@@ -28,12 +30,12 @@ const App = () => {
     event.preventDefault()
     console.log('Inside addName here')
     // Test if name exists
-    const existingPerson = persons.filter((person) => person.name === newName)
+    const existingPerson = persons.filter((person) => person.name.toLowerCase() === newName.toLowerCase())
     
     if (existingPerson.length > 0) {
       if (window.confirm(`${newName} already exists. Update the entry?`)){
         const updatedObject = {
-          name: newName,
+          name: existingPerson[0].name,
           number: newNumber
         }
         personService
@@ -47,12 +49,17 @@ const App = () => {
             setPersons(newPersons)
             setNewName('')
             setNewNumber('')
+            setNotification(
+              `Phone number updated for ${updatedPerson.name}`
+            )
+            setTimeout(() => {
+              setNotification(null)
+            }, 5000)
           })
           .catch(error => {
             console.log('Failed to update existing person')
           })
       }
-    
     
     } else {
       // Add person if name doesn't exist
@@ -66,6 +73,12 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          setNotification(
+            `${returnedPerson.name} added to phone book`
+          )
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
         .catch(error => {
           console.log('Failed to add new person')
@@ -122,7 +135,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      
+      <Notification message={notification} />
         Filter: 
         <input
           value = {searchFilter}

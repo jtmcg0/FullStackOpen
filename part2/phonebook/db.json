@@ -17,7 +17,7 @@
     },
     {
       "name": "Foo Bill",
-      "number": "666-666-6666",
+      "number": "34983",
       "id": "ed3e"
     },
     {
@@ -26,9 +26,29 @@
       "number": "46558-444"
     },
     {
+      "id": "a0fa",
+      "name": "New Guy",
+      "number": "445599595"
+    },
+    {
+      "id": "5857",
+      "name": "one more time",
+      "number": "4773874"
+    },
+    {
+      "id": "e523",
+      "name": "Works now?",
+      "number": "334723470"
+    },
+    {
+      "id": "0ed5",
+      "name": "arto hellas",
+      "number": "123-456-7890"
+    },
+    {
       "name": "Sting",
-      "number": "000-000-0000",
-      "id": "028d"
+      "number": "6666666",
+      "id": "4e67"
     }
   ]
 }
