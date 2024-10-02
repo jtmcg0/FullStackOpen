@@ -2,10 +2,11 @@ const Notification = ({ message }) => {
   if (message === null) {
     return null
   }
+console.log('Notification: ', message.type)
 
   return (
-    <div className='notification'>
-      {message}
+    <div className={message.type}>
+      {message.text}
     </div>
   )
 }

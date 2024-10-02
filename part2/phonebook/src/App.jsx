@@ -21,7 +21,13 @@ const App = () => {
         setPersons(initialPersons)
       })
       .catch(error => {
-        console.log('Failed to retrieve persons list')
+        setNotification({
+          text: 'Failed to retrieve persons list!',
+          type: 'error'
+        })
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
       })
   }, [])
   console.log(`Rendering ${persons.length} persons from storage`)
@@ -49,15 +55,23 @@ const App = () => {
             setPersons(newPersons)
             setNewName('')
             setNewNumber('')
-            setNotification(
-              `Phone number updated for ${updatedPerson.name}`
-            )
+            setNotification({
+              text:`Phone number updated for ${updatedPerson.name}`,
+              type:'success'
+            })
             setTimeout(() => {
               setNotification(null)
             }, 5000)
           })
           .catch(error => {
-            console.log('Failed to update existing person')
+            setNotification({
+              text: 'This record has been removed from the server',
+              type: 'error'
+            })
+            setTimeout(() => {
+              setNotification(null)
+            }, 5000)
+            setPersons(persons.filter(person => person.id !== existingPerson[0].id))
           })
       }
     
@@ -73,15 +87,22 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
-          setNotification(
-            `${returnedPerson.name} added to phone book`
-          )
+          setNotification({
+            text:`${returnedPerson.name} added to phone book`, 
+            type:'success'
+          })
           setTimeout(() => {
             setNotification(null)
           }, 5000)
         })
         .catch(error => {
-          console.log('Failed to add new person')
+          setNotification({
+            text: 'Unable to add new person to server data!',
+            type: 'error'
+          })
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
     }
   }
@@ -106,6 +127,16 @@ const App = () => {
           //Create updated list by filtering out the id passed for deletion
           const updatedList = persons.filter(person => person.id !== id)
           setPersons(updatedList)
+        })
+        .catch(error => {
+          setNotification({
+            text: 'Record already removed from server',
+            type: 'error'
+          })
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
+          setPersons(persons.filter(person => person.id !== id))
         })
     }
   }
@@ -135,7 +166,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={notification} />
+      <Notification message={notification}/>
         Filter: 
         <input
           value = {searchFilter}
