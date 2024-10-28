@@ -1,7 +1,7 @@
 import Country from './Country'
 import CountryDetail from './CountryDetail'
 
-const Countries = ({countries}) => {
+const Countries = ({countries, setSearchCountry}) => {
 
   //Warn if more than 10 matches
   if (countries.length > 10){
@@ -24,7 +24,7 @@ const Countries = ({countries}) => {
       <Country
         key={country.name.official}
         country={country.name.common}
-        type='list'
+        setSearchCountry={setSearchCountry}
       />
     )}
     </ul>

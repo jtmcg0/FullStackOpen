@@ -31,6 +31,10 @@ const App = (props) => {
     setSearchFilter(event.target.value)
   }
 
+  // Button handler to set setSearchFilter
+  const setSearchCountry = (text) => {
+    setSearchFilter(text)
+  } 
 
   //Don't render if list is null
   if (!countries) {return null}
@@ -42,7 +46,10 @@ const App = (props) => {
       onChange = {handleFilterChange}
     />
 
-    <Countries countries={countriesToShow} />
+    <Countries 
+      countries={countriesToShow}
+      setSearchCountry={setSearchCountry}
+    />
 
     </>
   )
